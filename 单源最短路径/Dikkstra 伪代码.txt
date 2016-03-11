@@ -1,0 +1,14 @@
+Dijkstra(G, W, s)　　　　　　//G表示图，W表示权值函数，s表示源顶点
+　　d[s] ←0　　　　　　　　　　//源点到源点最短路为0
+　　for each v ∈ V - {s}　　//3-8行均为初始化操作
+　　　　　do d[v]←∞
+　 　　　　  parent[v]←NIL
+　　S←?　　　　　　　　
+　　Q←V　　　　　　　　//此处Q为优先队列，存储未进入S的各顶点以及从源点到这些顶点的估算距离，采用二叉堆（最小堆）实现，越小越优先
+　　while Q≠?
+　　 do u←Extract-Min(Q)　　//提取估算距离最小的顶点，在优先队列中位于顶部，出队列，放入集合S中
+　　　  S←S∪{u}
+　　　　for each v ∈ Adj(u)　　//松弛操作，对与u相邻的每个顶点v，进行维持三角不等式成立的松弛操作。
+　　　　　　do if d[v] > d[u] + w(u, v)
+　　　　　　　　then d[v] = d[u] + w(u, v)　　//这一步隐含了更新优先队列中的值，DECREASE。
+　　　　　　　　　　  parent[v]←u　　　　　　//置v的前驱结点为u
